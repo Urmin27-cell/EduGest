@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "School": {
+      "title": "School",
+      "description": "Multi-tenant isolated school document containing all data, classes, subjects, teachers, students, and grades",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "schoolName": { "type": "string" },
+        "directorName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "schoolName"]
+    }
+  },
+  "firestore": {
+    "/schools/{schoolId}": {
+      "schema": "School",
+      "description": "Autonomous isolated school database for each registered establishment"
+    }
+  }
+}

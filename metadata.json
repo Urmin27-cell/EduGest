@@ -1,0 +1,6 @@
+{
+  "name": "Gestion École – Bulletins & Présences",
+  "description": "Application web complète de gestion scolaire : élèves, enseignants, classes, matières, notes, calculs de moyennes, bulletins officiels PDF avec signatures et gestion des présences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
