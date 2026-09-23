@@ -18,6 +18,8 @@ import { AuditLogView } from './components/AuditLogView';
 import { SettingsView } from './components/SettingsView';
 import { StudentProfileModal } from './components/StudentProfileModal';
 import { StudentModal } from './components/StudentModal';
+import { PWAInstallModal } from './components/PWAInstallModal';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 export default function App() {
   const [db, setDb] = useState<SchoolDatabase>(dbService.getDatabase());
@@ -100,11 +102,18 @@ export default function App() {
   };
 
   if (!currentUser) {
-    return <AuthView db={db} onSuccess={handleLoginSuccess} />;
+    return (
+      <>
+        <AuthView db={db} onSuccess={handleLoginSuccess} />
+        <PWAInstallModal />
+        <OfflineIndicator />
+      </>
+    );
   }
 
   return (
-    <Layout
+    <>
+      <Layout
       db={db}
       currentUser={currentUser}
       currentSection={currentSection}
@@ -271,5 +280,8 @@ export default function App() {
         }}
       />
     </Layout>
+    <PWAInstallModal />
+    <OfflineIndicator />
+    </>
   );
 }

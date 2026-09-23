@@ -2,13 +2,105 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestion École – Bulletins & Présences</title>
-    <meta name="description" content="Application web complète de gestion scolaire : élèves, enseignants, classes, matières, notes, calculs de moyennes, bulletins officiels PDF avec signatures et gestion des présences." />
-    <meta property="og:title" content="Gestion École – Bulletins & Présences" />
-    <meta property="og:description" content="Application web complète de gestion scolaire : élèves, enseignants, classes, matières, notes, calculs de moyennes, bulletins officiels PDF avec signatures et gestion des présences." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary Page Title & Meta Tags (SEO Madagascar & Google Search) -->
+    <title>EduGest Madagascar – Logiciel de Gestion Scolaire, Notes & Bulletins Officiels</title>
+    <meta name="title" content="EduGest Madagascar – Logiciel de Gestion Scolaire, Notes & Bulletins Officiels" />
+    <meta name="description" content="EduGest est la plateforme professionnelle n°1 de gestion d'école à Madagascar : gestion des élèves, saisie sécurisée des notes par les professeurs avec signatures numériques, calcul des moyennes pondérées, bulletins officiels PDF et suivi des présences." />
+    <meta name="keywords" content="EduGest, EduGest Madagascar, logiciel EduGest, fampiharana EduGest, Logiciel de gestion scolaire Madagascar, fampiharana fitantanana sekoly, bulletin de notes Madagascar, relevé de notes collège lycée, saisie des notes enseignant, calcul automatique moyennes coefficients, gestion élèves et classes, école primaire Madagascar, certificat de scolarité, fiche de présence élève, Sekoly Manager Madagascar" />
+    <meta name="author" content="EduGest Madagascar" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="theme-color" content="#1e1b4b" />
+    <link rel="canonical" href="https://edu-gest-eight.vercel.app/" />
+    
+    <!-- OpenGraph Social Share Metadata (Facebook, WhatsApp, LinkedIn, Messenger) -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://edu-gest-eight.vercel.app/" />
+    <meta property="og:site_name" content="EduGest Madagascar" />
+    <meta property="og:title" content="EduGest Madagascar – Logiciel de Gestion Scolaire & Bulletins" />
+    <meta property="og:description" content="EduGest : Système complet de gestion d'école à Madagascar. Gestion des élèves, enseignants, saisie de notes avec visas professeurs, calcul automatique des rangs et moyennes, bulletins scolaires officiels PDF." />
+    <meta property="og:image" content="https://edu-gest-eight.vercel.app/og-image.jpg" />
+    <meta property="og:image:alt" content="EduGest Madagascar - Plateforme de Gestion Scolaire" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="mg_MG" />
+    
+    <!-- Twitter / X Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://edu-gest-eight.vercel.app/" />
+    <meta name="twitter:title" content="EduGest Madagascar – Logiciel de Gestion Scolaire" />
+    <meta name="twitter:description" content="EduGest Madagascar : Gestion complète des élèves, saisie des notes avec signatures, calculs des moyennes et génération de bulletins scolaires." />
+    <meta name="twitter:image" content="https://edu-gest-eight.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="EduGest Madagascar" />
+    
+    <!-- PWA & Mobile Web App Compliance -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="EduGest" />
+    <meta name="application-name" content="EduGest" />
+    
+    <!-- Icons & Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/pwa-512x512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Search Console & Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://edu-gest-eight.vercel.app/#software",
+          "name": "EduGest Madagascar",
+          "alternateName": ["EduGest", "EduGest App", "Sekoly EduGest"],
+          "url": "https://edu-gest-eight.vercel.app/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "inLanguage": ["fr", "mg"],
+          "description": "EduGest est un logiciel de gestion scolaire complet pour les écoles primaires, collèges et lycées à Madagascar : calcul automatique des moyennes avec coefficients, saisie sécurisée des notes par les enseignants avec signature numérique, impression des bulletins officiels et suivi des présences.",
+          "image": "https://edu-gest-eight.vercel.app/og-image.jpg",
+          "screenshot": "https://edu-gest-eight.vercel.app/og-image.jpg",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "MGA"
+          },
+          "featureList": [
+            "Saisie sécurisée des notes par les enseignants avec mot de passe personnel",
+            "Signature numérique et visa des professeurs sur chaque note",
+            "Calcul instantané des moyennes pondérées, totaux et rangs de classe",
+            "Génération et impression des bulletins de notes officiels en PDF",
+            "Gestion des coefficients par matière et par classe",
+            "Fiches de présence et registre des absences",
+            "Certificats de scolarité et cartes d'identité scolaires",
+            "Synchronisation Cloud Firestore en temps réel",
+            "Application PWA installable sur ordinateur, Android et iOS"
+          ]
+        },
+        {
+          "@type": "EducationalOrganization",
+          "@id": "https://edu-gest-eight.vercel.app/#organization",
+          "name": "EduGest Madagascar",
+          "url": "https://edu-gest-eight.vercel.app/",
+          "description": "Système de gestion et d'administration scolaire EduGest à Madagascar.",
+          "logo": "https://edu-gest-eight.vercel.app/logo.png",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Madagascar"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -18,4 +110,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SchoolDatabase, Student } from '../types';
+import { PWAInstallHeaderButton } from './PWAInstallModal';
 import {
   LayoutDashboard,
   Users,
@@ -104,15 +105,22 @@ export const Layout: React.FC<LayoutProps> = ({
               onClick={() => onNavigate('dashboard')}
               className="flex items-center gap-2.5 cursor-pointer"
             >
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs">
-                <School className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-md flex items-center justify-center overflow-hidden shrink-0">
+                <img
+                  src="/pwa-192x192.png"
+                  alt="ColéGestion Logo"
+                  className="w-full h-full object-cover rounded-[10px]"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/icon.svg';
+                  }}
+                />
               </div>
               <div className="hidden sm:block">
-                <span className="font-extrabold text-sm text-white tracking-tight block leading-none">
-                  {db.settings.schoolName || 'GESTION ÉCOLE'}
+                <span className="font-black text-sm text-white tracking-tight block leading-none">
+                  {db.settings.schoolName || 'EDUGEST MADAGASCAR'}
                 </span>
-                <span className="text-[10px] text-slate-400 block mt-0.5 leading-none">
-                  Bulletins & Présences Officiels
+                <span className="text-[10px] text-amber-300 font-semibold block mt-0.5 leading-none">
+                  Logiciel de Gestion Scolaire & Bulletins
                 </span>
               </div>
             </div>
@@ -164,11 +172,13 @@ export const Layout: React.FC<LayoutProps> = ({
             )}
           </div>
 
-          {/* Right: User Profile & Logout */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-semibold">
+          {/* Right: User Profile, PWA Install & Logout */}
+          <div className="flex items-center gap-2.5">
+            <PWAInstallHeaderButton />
+
+            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Firestore Temps Réel</span>
+              <span>Firestore Real-Time</span>
             </div>
 
             <div className="text-right hidden sm:block">

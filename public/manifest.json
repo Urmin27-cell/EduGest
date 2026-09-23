@@ -1,0 +1,62 @@
+{
+  "id": "/",
+  "name": "EduGest Madagascar - Fitantanana Sekoly & Bulletins",
+  "short_name": "EduGest",
+  "description": "EduGest : Plateforme complète de gestion d'école, bulletins de notes, saisie sécurisée des enseignants avec signatures numériques, moyennes et présences à Madagascar.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#1e1b4b",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Saisie des Notes",
+      "short_name": "Notes",
+      "description": "Accès direct à la saisie des notes et signatures des professeurs",
+      "url": "/?view=grades",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Bulletins de Notes",
+      "short_name": "Bulletins",
+      "description": "Génération et impression des bulletins officiels",
+      "url": "/?view=bulletins",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tableau de Bord",
+      "short_name": "Dashboard",
+      "description": "Vue d'ensemble de l'établissement scolaire",
+      "url": "/?view=dashboard",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

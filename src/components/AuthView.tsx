@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SchoolDatabase, Teacher, SchoolSummary } from '../types';
 import { dbService } from '../services/dbService';
+import { PWAInstallHeaderButton } from './PWAInstallModal';
 import {
   ShieldCheck,
   GraduationCap,
@@ -259,16 +260,28 @@ export const AuthView: React.FC<AuthViewProps> = ({ db, onSuccess }) => {
       {/* Decorative backdrop glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
 
+      {/* Top Bar with PWA install button */}
+      <div className="absolute top-4 right-4 z-20">
+        <PWAInstallHeaderButton />
+      </div>
+
       {/* Brand Header */}
-      <div className="text-center mb-6 relative z-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600 text-white shadow-lg mb-3">
-          <School className="w-8 h-8" />
+      <div className="text-center mb-6 relative z-10 max-w-lg">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-400 via-indigo-600 to-indigo-900 p-1 shadow-2xl shadow-indigo-950/80 mb-3.5">
+          <img
+            src="/pwa-192x192.png"
+            alt="EduGest Logo"
+            className="w-full h-full object-cover rounded-2xl"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/icon.svg';
+            }}
+          />
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-          {db.settings.schoolName || 'GESTION ÉCOLE MADAGASCAR'}
+          {db.settings.schoolName || 'EDUGEST MADAGASCAR'}
         </h1>
-        <p className="text-xs text-indigo-300 mt-1 uppercase tracking-widest font-bold">
-          Portail Officiel d'Authentification & Inscription Scolaire (Firestore)
+        <p className="text-xs text-amber-300 mt-1 uppercase tracking-widest font-bold">
+          Logiciel Professionnel de Gestion Scolaire & Bulletins Officiels (EduGest)
         </p>
       </div>
 

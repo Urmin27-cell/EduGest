@@ -1,6 +1,6 @@
 {
   "name": "Gestion École – Bulletins & Présences",
-  "description": "Application web complète de gestion scolaire : élèves, enseignants, classes, matières, notes, calculs de moyennes, bulletins officiels PDF avec signatures et gestion des présences.",
+  "description": "Plateforme professionnelle de gestion d'école à Madagascar : élèves, enseignants, saisie de notes sécurisée avec signatures numériques, calcul des moyennes, bulletins officiels PDF et fiches de présences.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
