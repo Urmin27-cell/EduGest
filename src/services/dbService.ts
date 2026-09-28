@@ -698,11 +698,11 @@ class DatabaseService {
     this.notify();
     this.initActiveSchoolSync(newSchoolId);
 
-    // 4. Save to Firestore with a race timeout so network lag or offline status NEVER blocks registration!
+    // 4. Save to Firestore in background without blocking registration
     if (typeof window !== 'undefined') {
       try {
         const schoolDocRef = doc(firestore, 'schools', newSchoolId);
-        const firestoreWritePromise = setDoc(schoolDocRef, schoolPayload)
+        setDoc(schoolDocRef, schoolPayload)
           .then(() => {
             this.isFirestoreConnected = true;
             console.log('Sekoly vaovao voatahiry soa aman-tsara tao amin\'ny Firestore.');
@@ -710,14 +710,6 @@ class DatabaseService {
           .catch((err) => {
             console.warn('Fampitandremana Firestore (voatahiry an-toerana ihany aloha):', err);
           });
-
-        // Wait maximum 2.5 seconds for Firestore acknowledgement.
-        // If acknowledged quickly, it finishes instantly.
-        // If slow or offline, it DOES NOT block the user and continues in the background!
-        await Promise.race([
-          firestoreWritePromise,
-          new Promise((resolve) => setTimeout(resolve, 2500)),
-        ]);
       } catch (err) {
         console.warn('Firestore write warning:', err);
       }

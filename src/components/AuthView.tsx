@@ -919,7 +919,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ db, onSuccess }) => {
                 className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-4"
               >
                 <Sparkles className="w-4 h-4" />
-                {isSubmittingReg ? 'Eo am-pamoronana ao amin\'ny Firestore...' : 'Mamorona ny Sekoly & Hiditra amin\'ny Fitantanana'}
+                {isSubmittingReg ? 'Eo am-pamoronana & fidirana...' : 'Mamorona ny Sekoly & Hiditra amin\'ny Fitantanana'}
               </button>
 
               <div className="text-center pt-2">
