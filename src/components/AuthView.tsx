@@ -228,6 +228,12 @@ export const AuthView: React.FC<AuthViewProps> = ({ db, onSuccess }) => {
     }
 
     setIsSubmittingReg(true);
+
+    // Watchdog safety timer: ensures UI cannot hang if network freezes
+    const watchdogTimer = setTimeout(() => {
+      setIsSubmittingReg(false);
+    }, 5000);
+
     try {
       const res = await dbService.registerSchoolAndDirector({
         schoolName: schoolName.trim(),
@@ -241,14 +247,21 @@ export const AuthView: React.FC<AuthViewProps> = ({ db, onSuccess }) => {
         recoveryAnswer: regRecoveryAnswer.trim(),
       });
 
-      // Auto login as Director into the new empty establishment
+      clearTimeout(watchdogTimer);
+
+      // Auto login as Director into the newly created establishment
       onSuccess({
         name: res.directorName,
         role: 'DIRECTEUR',
       });
     } catch (err: any) {
-      setRegError('Nisy olana teo am-pisoratana anarana. Andramo indray azafady.');
+      clearTimeout(watchdogTimer);
+      console.error('Registration failed:', err);
+      setRegError(
+        err?.message || 'Nisy olana teo am-pisoratana anarana. Andramo indray azafady.'
+      );
     } finally {
+      clearTimeout(watchdogTimer);
       setIsSubmittingReg(false);
     }
   };

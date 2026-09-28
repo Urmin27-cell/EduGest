@@ -88,6 +88,13 @@ class DatabaseService {
         this.activeSchoolId = savedSchoolId;
       }
 
+      const storedSchools = localStorage.getItem('schools_directory');
+      if (storedSchools) {
+        try {
+          this.schoolsList = JSON.parse(storedSchools);
+        } catch {}
+      }
+
       const storedDb = localStorage.getItem(`school_db_${this.activeSchoolId}`);
       if (storedDb) {
         this.cache = JSON.parse(storedDb);
@@ -143,6 +150,13 @@ class DatabaseService {
               isDemo: true,
               createdAt: new Date().toISOString(),
             });
+          }
+
+          // Merge any locally registered schools that might still be syncing in the background
+          for (const localSchool of this.schoolsList) {
+            if (!list.some((s) => s.id === localSchool.id)) {
+              list.push(localSchool);
+            }
           }
 
           this.schoolsList = list;
@@ -631,6 +645,7 @@ class DatabaseService {
       ],
     };
 
+    const cleanSchoolDb = JSON.parse(JSON.stringify(emptySchoolDb));
     const schoolPayload = {
       id: newSchoolId,
       schoolName: cleanSchoolName,
@@ -641,26 +656,75 @@ class DatabaseService {
       isDemo: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      database: emptySchoolDb,
+      database: cleanSchoolDb,
     };
 
-    // 1. Save directly to Firestore under /schools/{newSchoolId}
+    // 1. Immediately cache in localStorage FIRST so local state is never lost
     if (typeof window !== 'undefined') {
       try {
-        const schoolDocRef = doc(firestore, 'schools', newSchoolId);
-        await setDoc(schoolDocRef, schoolPayload);
-      } catch (err) {
-        console.error('Error writing new school to Firestore:', err);
+        localStorage.setItem(`school_db_${newSchoolId}`, JSON.stringify(cleanSchoolDb));
+        localStorage.setItem('active_school_id', newSchoolId);
+      } catch (e) {
+        console.error('Error caching new school locally:', e);
       }
     }
 
-    // Cache to localStorage
+    // 2. Immediately register in the schools directory so it appears in all selectors
+    const newSummary: SchoolSummary = {
+      id: newSchoolId,
+      schoolName: cleanSchoolName,
+      directorName: cleanDirectorName,
+      phone: data.phone?.trim() || '',
+      address: data.address?.trim() || '',
+      email: data.email?.trim() || '',
+      isDemo: false,
+      createdAt: new Date().toISOString(),
+    };
+    const updatedSchools = [
+      ...this.schoolsList.filter((s) => s.id !== newSchoolId),
+      newSummary,
+    ];
+    this.schoolsList = updatedSchools;
     if (typeof window !== 'undefined') {
-      localStorage.setItem(`school_db_${newSchoolId}`, JSON.stringify(emptySchoolDb));
+      try {
+        localStorage.setItem('schools_directory', JSON.stringify(updatedSchools));
+      } catch {}
+    }
+    this.notifySchools();
+
+    // 3. Set active school in memory immediately
+    this.activeSchoolId = newSchoolId;
+    this.cache = cleanSchoolDb;
+    this.notify();
+    this.initActiveSchoolSync(newSchoolId);
+
+    // 4. Save to Firestore with a race timeout so network lag or offline status NEVER blocks registration!
+    if (typeof window !== 'undefined') {
+      try {
+        const schoolDocRef = doc(firestore, 'schools', newSchoolId);
+        const firestoreWritePromise = setDoc(schoolDocRef, schoolPayload)
+          .then(() => {
+            this.isFirestoreConnected = true;
+            console.log('Sekoly vaovao voatahiry soa aman-tsara tao amin\'ny Firestore.');
+          })
+          .catch((err) => {
+            console.warn('Fampitandremana Firestore (voatahiry an-toerana ihany aloha):', err);
+          });
+
+        // Wait maximum 2.5 seconds for Firestore acknowledgement.
+        // If acknowledged quickly, it finishes instantly.
+        // If slow or offline, it DOES NOT block the user and continues in the background!
+        await Promise.race([
+          firestoreWritePromise,
+          new Promise((resolve) => setTimeout(resolve, 2500)),
+        ]);
+      } catch (err) {
+        console.warn('Firestore write warning:', err);
+      }
     }
 
-    // 2. Switch active school to this newly registered school
-    await this.switchActiveSchool(newSchoolId);
+    // Optional server backup
+    this.syncWithServer(cleanSchoolDb);
 
     return {
       schoolId: newSchoolId,
